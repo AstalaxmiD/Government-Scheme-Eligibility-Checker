@@ -1,6 +1,7 @@
-from lib2to3.pgen2.token import NUMBER
+
 import pywebio
 from pywebio.input import *
+from pywebio.input import NUMBER
 from pywebio.output import *
 
 put_html("<h1>Government Scheme Eligibilty Checker</h1> <br> <br>")
