@@ -19,15 +19,7 @@ def eligibility():
 
     e2=radio("have you graduated college?",options= ["yes","no"] )
     employed=radio("are you employed?",options=["yes","no"])
-    sector=radio("what sector would you like to start or own a business in manufacturing,business,service or agriculture?",options=["manufacturing","business","service","agriculture"])
-    if sector=="manufacturing":
-        sector="m"
-    if sector=="business":
-        sector="b"   
-    if sector=="service":
-        sector="s"  
-    if sector=="agriculture":
-        sector="a"   
+    
     if employed=="yes":
         source=radio("do you earn money through manual labour or daily wage?",options=["yes","no"])
         business=radio("do you own a business?",options=["yes","no"] )
@@ -51,9 +43,19 @@ def eligibility():
             b4=radio("are you interested in starting a business?",options=["yes","no"])
             if b4=="yes":
                 cost=input("what is the minimum budget for your business?",type=FLOAT)
+                sector=radio("what sector would you like to start or own a business in manufacturing,business,service or agriculture?",options=["manufacturing","business","service","agriculture"])
+                if sector=="manufacturing":
+                    sector="m"
+                if sector=="business":
+                    sector="b"   
+                if sector=="service":
+                    sector="s"  
+                if sector=="agriculture":
+                    sector="a"   
                 
             else:
                 cost=0
+                sector = "no"
                 
     if employed=="no":
         source,business,b1,b2,b3,b4,cost="s","s",0,"s",0,"s",0
