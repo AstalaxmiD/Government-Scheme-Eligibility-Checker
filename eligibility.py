@@ -64,7 +64,7 @@ def eligibility():
         gender="F"
     if gender=="Male":
         gender="M"
-    citizen=radio("Are you an India citizen?",options=["yes","no"])
+    citizen=radio("Are you an Indian citizen?",options=["yes","no"])
     bankaccount=radio("Do you have a bank account?",options=["yes","no"])
     socialsecurity=radio("Are you a member of any statutory social security scheme?",options=["yes","no"])
     caste=radio("Is your caste Scheduled caste or tribe?",options=["yes","no"])
@@ -106,7 +106,7 @@ def eligibility():
         j2=6
     ill=radio("Are you terminally ill?",options=["yes","no"])
     ur=radio("Do you live in a urban or rural area?",options=["urban","rural"])
-    lpg=radio("Do you have a lpg connection?",options=["yes","no"])
+    lpg=radio("Do you have a LPG connection?",options=["yes","no"])
 
     c=0 
     if gender=="F":
