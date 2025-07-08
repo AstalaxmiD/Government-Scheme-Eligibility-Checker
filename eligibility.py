@@ -9,41 +9,41 @@ def eligibility():
     put_html("<h1>Government Scheme Eligibilty Checker</h1> <br> <br>")
     age= input("Input your age", type=NUMBER)
     income = input("Input your annual income", type=FLOAT)
-    fincome=input("enter the total income of your family per year:",type=FLOAT)
+    fincome=input("Enter the total income of your family per year:",type=FLOAT)
 
-    education=radio("did you graduate school?",options=["yes","no"])
+    education=radio("Did you graduate High school?",options=["yes","no"])
     if education=="no":
-        e1=input("what is the last grade you passed in school? -grade number ",type=NUMBER)
+        e1=input("What is the last grade you passed in school? (Grade Number) ",type=NUMBER)
     if education=="yes":
         e1=12
 
-    e2=radio("have you graduated college?",options= ["yes","no"] )
-    employed=radio("are you employed?",options=["yes","no"])
+    e2=radio("Have you graduated college?",options= ["yes","no"] )
+    employed=radio("Are you employed?",options=["yes","no"])
     
     if employed=="yes":
-        source=radio("do you earn money through manual labour or daily wage?",options=["yes","no"])
-        business=radio("do you own a business?",options=["yes","no"] )
+        source=radio("Do you earn money through manual labour or daily wage?",options=["yes","no"])
+        business=radio("Do you own a business?",options=["yes","no"] )
         
         final=fincome/12
         
         if business=="yes":
 
-            b1=input("total net worth of business=",type=FLOAT)
-            b2=radio("is it a non individual enterprise?",options=["yes","no"]) 
+            b1=input("Total net worth of business=",type=FLOAT)
+            b2=radio("Is it a non individual enterprise?",options=["yes","no"]) 
             if b2=="yes":
                 b3=input("How many percent of the company do you own?",type=FLOAT)
             if b2=="no":
                 b3=100
-            time=input("how many years ago did your business' commercial production began?",type=FLOAT)
-            at=input("what is your business' annual turnover?",type=FLOAT)
+            time=input("How many years ago did your business' commercial production began?",type=FLOAT)
+            at=input("What is your business' annual turnover?",type=FLOAT)
         
 
         else:
             b1,b2,b3=0,"n",0
-            b4=radio("are you interested in starting a business?",options=["yes","no"])
+            b4=radio("Are you interested in starting a business?",options=["yes","no"])
             if b4=="yes":
-                cost=input("what is the minimum budget for your business?",type=FLOAT)
-                sector=radio("what sector would you like to start or own a business in manufacturing,business,service or agriculture?",options=["manufacturing","business","service","agriculture"])
+                cost=input("What is the minimum budget for your business?",type=FLOAT)
+                sector=radio("What sector would you like to start or own a business in manufacturing,business,service or agriculture?",options=["manufacturing","business","service","agriculture"])
                 if sector=="manufacturing":
                     sector="m"
                 if sector=="business":
@@ -59,59 +59,59 @@ def eligibility():
                 
     if employed=="no":
         source,business,b1,b2,b3,b4,cost="s","s",0,"s",0,"s",0
-    gender=radio("what is your gender?",options=["Female","Male"]) 
+    gender=radio("What is your gender?",options=["Female","Male"]) 
     if gender=="Female":
         gender="F"
     if gender=="Male":
         gender="M"
-    citizen=radio("are you an India citizen?",options=["yes","no"])
-    bankaccount=radio("do you have a bank account?",options=["yes","no"])
-    socialsecurity=radio("are you a member of any statutory social security scheme?",options=["yes","no"])
-    caste=radio("is your caste Scheduled caste or tribe?",options=["yes","no"])
-    caste1=radio("do you belong to backward class?",options=["yes","no"])
-    group=radio('do you belong to any minority community?',options=["yes","no"])
-    farmer=radio("are you a farmer?",options=["yes","no"])
+    citizen=radio("Are you an India citizen?",options=["yes","no"])
+    bankaccount=radio("Do you have a bank account?",options=["yes","no"])
+    socialsecurity=radio("Are you a member of any statutory social security scheme?",options=["yes","no"])
+    caste=radio("Is your caste Scheduled caste or tribe?",options=["yes","no"])
+    caste1=radio("Do you belong to backward class?",options=["yes","no"])
+    group=radio('Do you belong to any minority community?',options=["yes","no"])
+    farmer=radio("Are you a farmer?",options=["yes","no"])
     if farmer=="yes":
-        size=input("how many hectares of land do you own?",type=FLOAT)
-        l1=radio("do you own cultivable land?",options=["yes","no"]) 
+        size=input("How many hectares of land do you own?",type=FLOAT)
+        l1=radio("Do you own cultivable land?",options=["yes","no"]) 
         if l1=="yes":
-            l2=radio("are you growing crops on your land ?",options=["yes","no"])
+            l2=radio("Are you growing crops on your land ?",options=["yes","no"])
         if l1=="no":
             l2="no"
     if farmer=="no":
         size=0
         l1="no"
-    land=radio("do you own any land?",options=["yes","no"])
-    shg=radio("are you a part of a self help group?",options=["yes","no"])
-    loan=radio("have you defaulted in any loan?",options=["yes","no"])
-    set=input("how many years have you been a permanent resident of your current residing area?",type=FLOAT)
-    family=radio("do you have a family?",options=["yes","no"])
-    family1=radio("do you have societal support or means of subsistance?",options=["yes","no"])
+    land=radio("Do you own any land?",options=["yes","no"])
+    shg=radio("Are you a part of a self help group?",options=["yes","no"])
+    loan=radio("Have you defaulted in any loan?",options=["yes","no"])
+    set=input("How many years have you been a permanent resident of your current residing area?",type=FLOAT)
+    family=radio("Do you have a family?",options=["yes","no"])
+    family1=radio("Do you have societal support or means of subsistance?",options=["yes","no"])
     if family=="yes":
-        f1=radio("any male member aged 16-59 in your family?",options=["yes","no"])
+        f1=radio("Any male member aged 16-59 in your family?",options=["yes","no"])
         f2=radio("Do you have any specially abled member in your family?",options=["yes","no"])
-        f3=radio("any professionals like doctors,lawyers etc. in your family?",options=["yes","no"])
+        f3=radio("Any professionals like doctors,lawyers etc. in your family?",options=["yes","no"])
         f4=radio("Any family member works in a government job including yourself?",options=["yes","no"])
         house1=radio("Do you or any family member own a house i.e not makeshift ?",options=["yes","no"])
     if family=="no":
         f1,f2,f3,f4,house1="no","no","no","no","no"
         
-    house=radio("do you live in a makeshift house?",options=["yes","no"])
-    job=radio("are you interested in pursuing scientific research?",options=["yes","no"])
+    house=radio("Do you live in a makeshift house?",options=["yes","no"])
+    job=radio("Are you interested in pursuing scientific research?",options=["yes","no"])
     if job=="yes":
-        j1=radio("do you hold a  academic or research position in a recognized institution?",options=["yes","no"])
-        j2=input("how long does your research need to be funded for i.e in years?",type=FLOAT)
+        j1=radio("Do you hold a  academic or research position in a recognized institution?",options=["yes","no"])
+        j2=input("How long does your research need to be funded for i.e in years?",type=FLOAT)
     if job=="no":
         j1="a"
         j2=6
-    ill=radio("are you terminally ill?",options=["yes","no"])
-    ur=radio("do you live in a urban or rural area?",options=["urban","rural"])
-    lpg=radio("do you have a lpg connection?",options=["yes","no"])
+    ill=radio("Are you terminally ill?",options=["yes","no"])
+    ur=radio("Do you live in a urban or rural area?",options=["urban","rural"])
+    lpg=radio("Do you have a lpg connection?",options=["yes","no"])
 
     c=0 
     if gender=="F":
-        p1=radio("are you a pregnant or lactating mother?",options=["yes","no"])
-    p2=input("how many children do you have?",type=NUMBER)
+        p1=radio("Are you a pregnant or lactating mother?",options=["yes","no"])
+    p2=input("How many children do you have?",type=NUMBER)
     if gender=="M":
         p1="s"
     put_html("<h3>List of schemes you are eligible for-</h3><br>") 
@@ -269,7 +269,7 @@ def eligibility():
 
    
 
-    put_html("<br><br><br><br><br>The source code of this website is subject to copyright, any scrapping or unintended utilization or modification of the source code is not permitted and will be legally dealt with. ")
+    put_html("<br><br><br><br><br>The source code of this website is subject to copyright, any scrapping or unintended utilization or modification of the source code is not permitted. ")
 
 port = int(os.environ.get("PORT", 8080))  # fallback for local testing
 pywebio.start_server(eligibility, port=port, host='0.0.0.0')
