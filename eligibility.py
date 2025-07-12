@@ -511,7 +511,7 @@ def eligibility():
 
     put_html("<br><br>")
     
-    put_file('GSEC.pdf', pdf_buffer, 'Click here to download your PDF with the list of eligible schemes and links')
+    put_file('GSEC.pdf', pdf_bytes, 'Click here to download your PDF with the list of eligible schemes and links')
    
    
     put_html("<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>The source code of this website is subject to copyright, any scrapping or unintended utilization or modification of the source code is not permitted ")
