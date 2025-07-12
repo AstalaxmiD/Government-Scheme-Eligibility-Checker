@@ -3,17 +3,21 @@ import pywebio
 from pywebio.input import NUMBER
 import os
 from pywebio.input import *
-from pywebio.output import *   
+from pywebio.output import *  
+from pywebio.output import put_file
 from fpdf import FPDF
+from io import BytesIO
 
 
 
-
-pdf = FPDF()
-pdf.add_page()
-pdf.set_font("Arial", size = 15)
 
 def eligibility(): 
+    pdf_buffer = BytesIO()
+
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size = 15)
+    
     put_html("<h1>Government Scheme Eligibilty Checker</h1> <br> <br>") 
     info=input_group(' basic user info',[
     input("Input your age:", name='age',type=NUMBER), 
@@ -229,288 +233,286 @@ def eligibility():
 
     put_html("<h3>List of schemes you are eligible for-</h3><br>") 
     x2=''
-    if age>=18 and b1<50000000 and business=="yes" and age<65 and citizen=="yes" and "all" in info['business1'] or "agriculture/agribusiness" in info['business1']:
+    if ((age>=18 and b1<50000000 and business=="yes" and age<65 and citizen=="yes") and ("all" in info['business1'] or "agriculture/agribusiness" in info['business1'])):
         c+=1
         put_text(c,'. Pradhan Mantri Mudra Yojana') 
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://www.mudra.org.in/'>click here</a> </font>")
         x1=str(c)+".Pradhan Mantri Mudra Yojana"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://www.mudra.org.in/")
        
-    if age>=18 and bankaccount=="yes" and age<=70 and citizen=="yes" and "all" in info['business1'] or "medical aid" in info['business1']: 
+    if ((age>=18 and bankaccount=="yes" and age<=70 and citizen=="yes") and ("all" in info['business1'] or "medical aid" in info['business1'])): 
         c+=1
         put_text(c,'. Pradhan Mantri Suraksha Bima Yojana')
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://pmjdy.gov.in/'>click here</a> </font>")
         x1=str(c)+".Pradhan Mantri Suraksha Bima Yojana"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://pmjdy.gov.in/")
         
-    if age>=18 and age<60 and citizen=="yes" and "all" in info['business1'] or "financial aid" in info['business1']:
+    if ((age>=18 and age<60 and citizen=="yes") and ("all" in info['business1'] or "financial aid" in info['business1'])):
         c+=1
         put_text(c,'. Pradhan Mantri Jan Dhan Yojana') 
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://pmjdy.gov.in/'>click here</a> </font>")
         x1=str(c)+".Pradhan Mantri Jan Dhan Yojana"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://pmjdy.gov.in/")
        
-    if age>=18 and age<60 and citizen=="no" and "all" in info['business1'] or "financial aid" in info['business1']:  
+    if ((age>=18 and age<60 and citizen=="no") and ("all" in info['business1'] or "financial aid" in info['business1'])):  
         c+=1
         put_text(c,". Pradhan Mantri Jan Dhan Yojana-provided the background checks done by the bank labels you as low risk") 
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://pmjdy.gov.in/'>click here</a> </font>")
         x1=str(c)+".Pradhan Mantri Jan Dhan Yojana"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://pmjdy.gov.in/")
         
-    if age>=10 and age<18 and citizen=="yes" and "all" in info['business1'] or "financial aid" in info['business1']:
+    if ((age>=10 and age<18 and citizen=="yes") and ("all" in info['business1'] or "financial aid" in info['business1'])):
         c+=1
         put_text(c,". Pradhan Mantri Jan Dhan Yojana provided the support of a guardian ")
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://pmjdy.gov.in/'>click here</a> </font>")
         x1=str(c)+".Pradhan Mantri Jan Dhan Yojana"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://pmjdy.gov.in/")
         
-    if age>=18 and socialsecurity=="no" and age<40 and citizen=="yes" and bankaccount=="yes" and "all" in info['business1'] or "financial aid" in info['business1']:
+    if ((age>=18 and socialsecurity=="no" and age<40 and citizen=="yes" and bankaccount=="yes") and ("all" in info['business1'] or "financial aid" in info['business1'])):
         c+=1
         put_text(c,'. Atal Pension Yojana')
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://www.npscra.nsdl.co.in/scheme-details.php'>click here</a> </font>")
         x1=str(c)+".Atal Pension Yojana"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://www.npscra.nsdl.co.in/scheme-details.php")
        
-    if age>=18 and age<50 and citizen=="yes" and ill=="no":
-        if "all" in info['business1'] or "medical aid" in info['business1'] :
+    if (age>=18 and age<50 and citizen=="yes" and ill=="no"):
+        if ("all" in info['business1'] or "medical aid" in info['business1']) :
             c+=1
             put_text(c,'. Pradhan Mantri Jeevan Jyoti Bima Yojana- provided a medical certificate attesting that the person is not diagnosed with any critical illness is provided')
             put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://www.jansuraksha.gov.in/Default.axsp'>click here</a> </font>")
             x1=str(c)+".Pradhan Mantri Jeevan Jyoti Bima Yojana"
-            pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+            pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://www.jansuraksha.gov.in/Default.axsp")
             
-    if age>18 and caste=="yes" and citizen=="yes" and b3>=51 and "all" in info['business1'] or "business" in info['business1']:
+    if ((age>18 and caste=="yes" and citizen=="yes" and b3>=51) and ("all" in info['business1'] or "business" in info['business1'])):
         c+=1
         put_text(c,'. Stand Up India') 
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://www.standupmitra.in/'>click here</a> </font>")
         x1=str(c)+".Stand Up India"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://www.standupmitra.in/")
        
-    if age>18 and caste=="no" and citizen=="yes" and b3>=51 and gender=="F" and "all" in info['business1'] or "business" in info['business1']:
+    if ((age>18 and caste=="no" and citizen=="yes" and b3>=51 and gender=="F") and ("all" in info['business1'] or "business" in info['business1'])):
         c+=1
         put_text(c,'. Stand Up India')
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://www.standupmitra.in/'>click here</a> </font>")
         x1=str(c)+".Stand Up India"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://www.standupmitra.in/")
         
-    if age>60 and citizen=="yes" and "all" in info['business1'] or "financial aid" in info['business1']:
+    if ((age>60 and citizen=="yes") and ("all" in info['business1'] or "financial aid" in info['business1'])):
         c+=1
         put_text(c,'. Pradhan Mantri Vaya Vandhana Yojana- note- this is a retirement cum pension scheme that has a purchase price of 1.5 lakhs minimum')
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://web.umang.gov.in/landing/department/pmvvy.html'>click here</a> </font>") 
         x1=str(c)+".Pradhan Mantri Vaya Vandhana Yojana"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://web.umang.gov.in/landing/department/pmvvy.html")
         
-    if age>=18 and source=="no" and house=="yes" and family=="yes" and citizen=="yes" and caste=="yes" and ur=="urban" and "all" in info['business1'] or "medical aid" in info['business1']:
+    if ((age>=18 and source=="no" and house=="yes" and family=="yes" and citizen=="yes" and caste=="yes" and ur=="urban") and ("all" in info['business1'] or "medical aid" in info['business1'])):
         c+=1
         put_text(c,'. Ayushman Bharat Yojana')
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://www.nhp.gov.in/ayushman-bharat-yojana_pg'>click here</a> </font>")
         x1=str(c)+". Ayushman Bharat Yojana"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://www.nhp.gov.in/ayushman-bharat-yojana_pg")
         
-    if (age>=18 and source=="no" and house=="yes" and family=="yes" and citizen=="yes" and caste=="yes" and ur=="urban" and "all" in info['business1'] or "medical aid" in info['business1'])==False and (age>=18 and source=="yes" and house=="no" and family=="yes" and f1=="no" and f2=="yes" and citizen=="yes" and caste=="yes" and ur=="rural" and "all" in info['business1'] or "medical aid" in info['business1'])==True:
+    if (((age>=18 and source=="no" and house=="yes" and family=="yes" and citizen=="yes" and caste=="yes" and ur=="urban") and ("all" in info['business1'] or "medical aid" in info['business1']))==False and ((age>=18 and source=="yes" and house=="no" and family=="yes" and f1=="no" and f2=="yes" and citizen=="yes" and caste=="yes" and ur=="rural") and ("all" in info['business1'] or "medical aid" in info['business1']))==True):
         c+=1
         put_text(c,'. Ayushman Bharat Yojana')
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://www.nhp.gov.in/ayushman-bharat-yojana_pg'>click here</a> </font>")
         x1=str(c)+". Ayushman Bharat Yojana"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://www.nhp.gov.in/ayushman-bharat-yojana_pg")
        
-    if ((age>=18 and source=="no" and house=="yes" and family=="yes" and citizen=="yes" and caste=="yes" and ur=="urban" and "all" in info['business1'] or "medical aid" in info['business1'])==False and age>=18 and source=="yes" and house=="no" and family=="yes" and f1=="no" and f2=="yes" and citizen=="yes" and caste=="yes" and ur=="rural" and "all" in info['business1'] or "medical aid" in info['business1'])==False and (age>=18 and source=="yes" and house=="no" and family=="yes" and f1=="yes" and f2=="no" and citizen=="yes" and caste=="yes" and ur=="rural" and "all" in info['business1'] or "medical aid" in info['business1'])==True  :
+    if ((((age>=18 and source=="no" and house=="yes" and family=="yes" and citizen=="yes" and caste=="yes" and ur=="urban") and ("all" in info['business1'] or "medical aid" in info['business1']))==False) and (((age>=18 and source=="yes" and house=="no" and family=="yes" and f1=="no" and f2=="yes" and citizen=="yes" and caste=="yes" and ur=="rural") and ("all" in info['business1'] or "medical aid" in info['business1']))==False) and (((age>=18 and source=="yes" and house=="no" and family=="yes" and f1=="yes" and f2=="no" and citizen=="yes" and caste=="yes" and ur=="rural") and ("all" in info['business1'] or "medical aid" in info['business1']))==True)):
         c+=1
         put_text(c,'. Ayushman Bharat Yojana')
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://www.nhp.gov.in/ayushman-bharat-yojana_pg'>click here</a> </font>")
         x1=str(c)+". Ayushman Bharat Yojana"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://www.nhp.gov.in/ayushman-bharat-yojana_pg")
        
-    if age>18 and employed=="no" and age<35 and citizen=="yes" and final>=40000 and final<=100000 and loan=="no" and set>=3 and e1>=8 and "all" in info['business1'] or "business" in info['business1']:
+    if ((age>18 and employed=="no" and age<35 and citizen=="yes" and final>=40000 and final<=100000 and loan=="no" and set>=3 and e1>=8) and ("all" in info['business1'] or "business" in info['business1'])):
         c+=1
         put_text(c,". Pradhan Mantri Rozgar Yojana") 
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://www.paisabazaar.com/business-loan/pradhan-mantri-rozgar-yojana-pmry/'>click here</a> </font>")
         x1=str(c)+".Pradhan Mantri Rozgar Yojana"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://www.paisabazaar.com/business-loan/pradhan-mantri-rozgar-yojana-pmry/")
        
-    if age>18 and citizen=="yes" and e1<8 and business=="no" and b4=="yes" and cost<1000000 and "manufacturing" in sector and "all" in info['business1'] or "business" in info['business1']:
+    if ((age>18 and citizen=="yes" and e1<8 and business=="no" and b4=="yes" and cost<1000000 and "manufacturing" in sector) and ("all" in info['business1'] or "business" in info['business1'])):
         c+=1
 
         put_text(c,'. Pradhan Mantri Employement Generation Program for manufacturing venture')
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://msme.gov.in/1-prime-ministers-employment-generation-programme-'>click here</a> </font>")
         x1=str(c)+".Pradhan Mantri Employement Generation Program for manufacturing venture"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://msme.gov.in/1-prime-ministers-employment-generation-programme-")
        
-    if age>18 and citizen=="yes" and e1<8 and business=="no" and b4=="yes" and cost<500000 and "service" in sector and "all" in info['business1'] or "business" in info['business1']:
+    if ((age>18 and citizen=="yes" and e1<8 and business=="no" and b4=="yes" and cost<500000 and "service" in sector) and ("all" in info['business1'] or "business" in info['business1'])):
         c+=1
         put_text(c,'. Pradhan Mantri Employement Generation Program for service venture') 
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://msme.gov.in/1-prime-ministers-employment-generation-programme-'>click here</a> </font>")
         x1=str(c)+".Pradhan Mantri Employement Generation Program for service venture"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://msme.gov.in/1-prime-ministers-employment-generation-programme-")
        
-    if age>18 and citizen=="yes" and business=="no" and b4=="yes" and e1<8 and cost<500000 and "business" in sector and "all" in info['business1'] or "business" in info['business1']:
+    if ((age>18 and citizen=="yes" and business=="no" and b4=="yes" and e1<8 and cost<500000 and "business" in sector) and ("all" in info['business1'] or "business" in info['business1'])):
         c+=1
         put_text(c,'. Pradhan Mantri Employement Generation Program for business venture')
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://msme.gov.in/1-prime-ministers-employment-generation-programme-'>click here</a> </font>")
         x1=str(c)+".Pradhan Mantri Employement Generation Program for business venture"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://msme.gov.in/1-prime-ministers-employment-generation-programme-")
         
-    if age>18 and citizen=="yes" and e1>=8 and business=="no" and b4=="yes" and cost<2500000 and "manufacturing" in sector and "all" in info['business1'] or "business" in info['business1']:
+    if ((age>18 and citizen=="yes" and e1>=8 and business=="no" and b4=="yes" and cost<2500000 and "manufacturing" in sector) and ("all" in info['business1'] or "business" in info['business1'])):
         c+=1
         put_text(c,'. Pradhan Mantri Employement Generation Program for manufacturing venture') 
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://msme.gov.in/1-prime-ministers-employment-generation-programme-'>click here</a> </font>")
         x1=str(c)+".Pradhan Mantri Employement Generation Program for manufacturing venture"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://msme.gov.in/1-prime-ministers-employment-generation-programme-")
        
-    if age>18 and citizen=="yes" and e1>=8 and business=="no" and b4=="yes" and cost<1000000 and "service" in sector and "all" in info['business1'] or "business" in info['business1']:
+    if ((age>18 and citizen=="yes" and e1>=8 and business=="no" and b4=="yes" and cost<1000000 and "service" in sector) and ("all" in info['business1'] or "business" in info['business1'])):
         c+=1
         put_text(c,'. Pradhan Mantri Employement Generation Program for service venture') 
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://msme.gov.in/1-prime-ministers-employment-generation-programme-'>click here</a> </font>")
         x1=str(c)+".Pradhan Mantri Employement Generation Program for service venture"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://msme.gov.in/1-prime-ministers-employment-generation-programme-")
         
-    if age>18 and citizen=="yes" and e1>=8 and business=="no" and b4=="yes" and cost<1000000 and "business" in sector and "all" in info['business1'] or "business" in info['business1']:
+    if ((age>18 and citizen=="yes" and e1>=8 and business=="no" and b4=="yes" and cost<1000000 and "business" in sector) and ("all" in info['business1'] or "business" in info['business1'])):
         c+=1
         put_text(c,'. Pradhan Mantri Employement Generation Program for business venture')
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://msme.gov.in/1-prime-ministers-employment-generation-programme-'>click here</a> </font>")
         x1=str(c)+".Pradhan Mantri Employement Generation Program for business venture"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://msme.gov.in/1-prime-ministers-employment-generation-programme-")
        
-    if age>=19 and p1=="yes" and  p2==0 and gender=="F" and citizen=="yes" and "all" in info['business1'] or 'financial aid' in info['business1']:
+    if ((age>=19 and p1=="yes" and  p2==0 and gender=="F" and citizen=="yes") and ("all" in info['business1'] or 'financial aid' in info['business1'])):
         c+=1
         put_text(c,". Pradhan Mantri Matritva Vandana Yojana provided you are not receiving any similar benefits from another government scheme")
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://www.coverfox.com/health-insurance/pradhan-mantri-matritva-vandana-yojana/'>click here</a> </font>")
         x1=str(c)+".Pradhan Mantri Matritva Vandana Yojana provided you are not receiving any similar benefits from another government scheme"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://www.coverfox.com/health-insurance/pradhan-mantri-matritva-vandana-yojana/")
        
-    if age>18 and ur=="urban" and income<=11520 and citizen=="yes" and ("all" in info['business1'] or 'job opportunities' in info['business1']) :
+    if ((age>18 and ur=="urban" and income<=11520 and citizen=="yes") and ("all" in info['business1'] or 'job opportunities' in info['business1'])) :
         c+=1
         put_text(c,". Deen Dayal Upadhyaya Antyodaya Yojana") 
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://www.india.gov.in/spotlight/deen-dayal-antyodaya-yojana'>click here</a> </font>")
         x1=str(c)+".Deen Dayal Upadhyaya Antyodaya Yojana"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://www.india.gov.in/spotlight/deen-dayal-antyodaya-yojana")
        
-    if age>18 and ur=="rural" and income<=9360 and citizen=="yes" and ("all" in info['business1'] or 'job opportunities' in info['business1']):
+    if ((age>18 and ur=="rural" and income<=9360 and citizen=="yes") and ("all" in info['business1'] or 'job opportunities' in info['business1'])):
         c+=1
         put_text(c,". Deen Dayal Upadhyaya Antyodaya Yojana")
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://www.india.gov.in/spotlight/deen-dayal-antyodaya-yojana'>click here</a> </font>")
         x1=str(c)+".Deen Dayal Upadhyaya Antyodaya Yojana"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://www.india.gov.in/spotlight/deen-dayal-antyodaya-yojana")
        
-    if e1<12 and age>=18 and e2=="no" and citizen=="yes" and "all" in info['business1'] or 'job opportunities' in info['business1']:
+    if ((e1<12 and age>=18 and e2=="no" and citizen=="yes") and ("all" in info['business1'] or 'job opportunities' in info['business1'])):
         c+=1
         put_text(c,". Pradhan Mantri Kaushal Vikas Yojana")
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://www.pmkvyofficial.org/home-page'>click here</a> </font>")
         x1=str(c)+".Pradhan Mantri Kaushal Vikas Yojana"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://www.pmkvyofficial.org/home-page")
         
-    if age>=18 and income>=300000 and income<1800000 and house1=="no" and citizen=="yes" and "all" in info['business1'] or 'sustenance aid' in info['business1']:
+    if ((age>=18 and income>=300000 and income<1800000 and house1=="no" and citizen=="yes") and ("all" in info['business1'] or 'sustenance aid' in info['business1'])):
         c+=1
         put_text(c,". Pradhan Mantri Awas Yojana")
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://www.pmkvyofficial.org/home-page'>click here</a> </font>")
         x1=str(c)+".Pradhan Mantri Awas Yojana"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://www.pmkvyofficial.org/home-page")
        
-    if house=="yes" and citizen=="yes":
-        if age>=60 or f2=="yes" or family1=="no" or family=="no" or source=="yes" and "all" in info['business1'] or 'sustenance aid' in info['business1']:
+    if (house=="yes" and citizen=="yes"):
+        if ((age>=60 or f2=="yes" or family1=="no" or family=="no" or source=="yes") and ("all" in info['business1'] or 'sustenance aid' in info['business1'])):
             c+=1
             put_text(c,". Antyodaya Anna Yojana")
             put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://www.indiafilings.com/learn/antyodaya-anna-yojana-aay/'>click here</a> </font>")
             x1=str(c)+".Antyodaya Anna Yojana"
-            pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+            pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://www.indiafilings.com/learn/antyodaya-anna-yojana-aay/")
             
-    if gender=="F" and bankaccount=="yes" and ur=="rural" and income<=9360 and lpg=="no" and citizen=="yes" and "all" in info['business1'] or 'sustenance aid' in info['business1']:
+    if ((gender=="F" and bankaccount=="yes" and ur=="rural" and income<=9360 and lpg=="no" and citizen=="yes") and ("all" in info['business1'] or 'sustenance aid' in info['business1'])):
         c+=1
-        put_text(c,". Pradhan Mantri Ujjwala Yojana provided you have a bpl certificate which you are eligible you apply for if otherwise ")
+        put_text(c,". Pradhan Mantri Ujjwala Yojana provided you have a bpl certificate which you are eligible to apply for, if otherwise ")
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://www.pmuy.gov.in/index.aspx'>click here</a> </font>")
         x1=str(c)+".Pradhan Mantri Ujjwala Yojana provided you have a bpl certificate which you are eligible you apply for if otherwise"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://www.pmuy.gov.in/index.aspx")
         
-    if ur=="rural" and age>=18 and land=="yes" and citizen=="yes":
+    if (ur=="rural" and age>=18 and land=="yes" and citizen=="yes"):
         c+=1
         put_text(c,". Svamitva Yojana")
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://www.godigit.com/guides/government-schemes/pm-swamitva-yojana-scheme'>click here</a> </font>")
         x1=str(c)+".Svamitva Yojana"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://www.godigit.com/guides/government-schemes/pm-swamitva-yojana-scheme")
         
-    if age>=18 and citizen=="yes" or "agriculture" in sector and "all" in info['business1'] or 'agriculture/agribusiness' in info['business1']:
+    if ((age>=18 and citizen=="yes" or "agriculture" in sector) and ("all" in info['business1'] or 'agriculture/agribusiness' in info['business1'])):
         if farmer=="yes" or business=="yes" or shg=="yes":
             c+=1
             put_text(c,". The Venture Capital Assistance Scheme")
             put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://www.indiafilings.com/learn/venture-capital-assistance-scheme/'>click here</a> </font>")
             x1=str(c)+".The Venture Capital Assistance Scheme"
-            pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+            pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://www.indiafilings.com/learn/venture-capital-assistance-scheme/")
             
-    if age>=18 and business=="yes" and time<1 and citizen=="yes" and b1<=100000000 and at<=500000000 and "all" in info['business1'] or 'business' in info['business1']:
+    if ((age>=18 and business=="yes" and time<1 and citizen=="yes" and b1<=100000000 and at<=500000000) and ("all" in info['business1'] or 'business' in info['business1'])):
         c+=1
         put_text(c,". Single Point Registration Scheme") 
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://www.nsic.co.in/schemes/Single-Point-Registration.aspx'>click here</a> </font>")
         x1=str(c)+".Single Point Registration Scheme"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://www.nsic.co.in/schemes/Single-Point-Registration.aspx")
        
-    if age>=18 and job=="yes" and citizen=="yes" and j1=="yes" and j2<=5 and "all" in info['business1'] or 'education' in info['business1']:
+    if ((age>=18 and job=="yes" and citizen=="yes" and j1=="yes" and j2<=5) and ("all" in info['business1'] or 'education' in info['business1'])):
         c+=1
         put_text(c,". High Risk High Reward Research Funding Scheme - the duration of funding can be extended to five years maximum for exeptional cases from the regular three year period ")
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://serbonline.in/SERB/HRR'>click here</a> </font>")
         x1=str(c)+".High Risk High Reward Research Funding Scheme - the duration of funding can be extended to five years maximum for exeptional cases from the regular three year period "
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://serbonline.in/SERB/HRR")
         
 
-    if age>=18 and citizen=="yes" and 'agriculture/agribusiness' in info['business1'] or "all" in info['business1']:
+    if ((age>=18 and citizen=="yes") and ('agriculture/agribusiness' in info['business1'] or "all" in info['business1'])):
         if farmer=="yes" or business=="yes" or shg=="yes":
             c+=1
             put_text(c,". Dairy Entrepreneurship Development Scheme")
             put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://www.indiafilings.com/learn/dairy-entrepreneurship-development-scheme/'>click here</a> </font>")
             x1=str(c)+".Dairy Entrepreneurship Development Scheme"
-            pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+            pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://www.indiafilings.com/learn/dairy-entrepreneurship-development-scheme/")
            
 
-    if age>=18 and job=="yes" and citizen=="yes" and "all" in info['business1'] or 'business' in info['business1']:
+    if ((age>=18 and job=="yes" and citizen=="yes") and ("all" in info['business1'] or 'business' in info['business1'])):
         c+=1
         put_text(c,". Promoting Innovations in Individuals,Startups and MSMEs Scheme") 
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://www.indiascienceandtechnology.gov.in/funding-opportunities/startups/promoting-innovations-individuals-startups-and-msmes-prism'>click here</a> </font>")
         x1=str(c)+".Promoting Innovations in Individuals,Startups and MSMEs Scheme"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://www.indiascienceandtechnology.gov.in/funding-opportunities/startups/promoting-innovations-individuals-startups-and-msmes-prism")
        
-    if age>=18 and group=="yes" and citizen=="yes" and business=="yes" and fincome<=600000 and "all" in info['business1'] or 'business' in info['business1']:
+    if ((age>=18 and group=="yes" and citizen=="yes" and business=="yes" and fincome<=600000) and ("all" in info['business1'] or 'business' in info['business1'])):
         c+=1
         put_text(c,". Self Employement Lending Schemes-Credit Line 2 - Term Loan Scheme") 
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://www.startupindia.gov.in/content/sih/en/government-schemes/self_employment_lending_schemes_credit_line_2_term_loan_scheme.html'>click here</a> </font>")
         x1=str(c)+".Self Employement Lending Schemes-Credit Line 2 - Term Loan Scheme"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
-    if age>=18 and farmer=="yes" and citizen=="yes" and "agriculture/agribusiness" in info['business1'] or "all" in info['business1']:
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://www.startupindia.gov.in/content/sih/en/government-schemes/self_employment_lending_schemes_credit_line_2_term_loan_scheme.html")
+    if ((age>=18 and farmer=="yes" and citizen=="yes") and ("agriculture/agribusiness" in info['business1'] or "all" in info['business1'])):
         if l1=="yes" or size<2:
             c+=1
             put_text(c,". PM-Kisan")
             put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://pmkisan.gov.in/'>click here</a> </font>")
             x1=str(c)+".PM-Kisan"
-            pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+            pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://pmkisan.gov.in/")
             
-    if age>=18 and gender=="F" and income<=81000 and ur=="rural" and caste1=="yes" and "all" in info['business1'] or 'business' in info['business1']:
+    if ((age>=18 and gender=="F" and income<=81000 and ur=="rural" and caste1=="yes") and ("all" in info['business1'] or 'business' in info['business1'])):
         c+=1
         put_text(c,". New Swarnima for women")
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://www.indiafilings.com/learn/swarnima-scheme-for-women/'>click here</a> </font>")
         x1=str(c)+".New Swarnima for women"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://www.indiafilings.com/learn/swarnima-scheme-for-women/")
         
-    if age>=18 and gender=="F" and income<=103000 and ur=="urban" and caste1=="yes" and "all" in info['business1'] or 'business' in info['business1']:
+    elif ((age>=18 and gender=="F" and income<=103000 and ur=="urban" and caste1=="yes") and ("all" in info['business1'] or 'business' in info['business1'])):
         c+=1
         put_text(c,". New Swarnima for women")
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://www.indiafilings.com/learn/swarnima-scheme-for-women/'>click here</a> </font>")
         x1=str(c)+".New Swarnima for women"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L')
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://www.indiafilings.com/learn/swarnima-scheme-for-women/")
         
-    if age>=18 and farmer=="yes" and l2=="yes" and "agriculture/agribusiness" in info['business1'] or "all" in info['business1']:
+    if ((age>=18 and farmer=="yes" and l2=="yes") and ("agriculture/agribusiness" in info['business1'] or "all" in info['business1'])):
         c+=1
         put_text(c,". Pradhan Mantri Fasal Bima Yojana ")
         put_html("<font color='grey'>&nbsp;&nbsp;For more details <a href='https://pmfby.gov.in/'>click here</a> </font>")
         x1=str(c)+".Pradhan Mantri Fasal Bima Yojana"
-        pdf.cell(200, 10, txt = x1,ln = c, align = 'L') 
+        pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://pmfby.gov.in/") 
         
 
-    pdf.output("GSEC.pdf")
-    popup("","pdf named GSEC.pdf downloaded.")
+    pdf.output(pdf_buffer)
+
+    put_html("<br><br>")
+    
+    put_file('GSEC.pdf', pdf_buffer.getvalue(), 'Click here to download your PDF')
    
-
-    put_html("<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>")
-
-   
-
    
     put_html("<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>The source code of this website is subject to copyright, any scrapping or unintended utilization or modification of the source code is not permitted ")
 
