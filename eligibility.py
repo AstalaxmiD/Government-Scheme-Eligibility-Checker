@@ -6,13 +6,13 @@ from pywebio.input import *
 from pywebio.output import *  
 from pywebio.output import put_file
 from fpdf import FPDF
-from io import BytesIO
+
 
 
 
 
 def eligibility(): 
-    pdf_buffer = BytesIO()
+   
 
     pdf = FPDF()
     pdf.add_page()
@@ -507,11 +507,11 @@ def eligibility():
         pdf.cell(200, 10, txt = x1,ln = c, align = 'L',link="https://pmfby.gov.in/") 
         
 
-    pdf.output(pdf_buffer)
+    pdf_bytes = pdf.output(dest='S').encode('latin1')
 
     put_html("<br><br>")
     
-    put_file('GSEC.pdf', pdf_buffer.getvalue(), 'Click here to download your PDF')
+    put_file('GSEC.pdf', pdf_buffer, 'Click here to download your PDF with the list of eligible schemes and links')
    
    
     put_html("<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>The source code of this website is subject to copyright, any scrapping or unintended utilization or modification of the source code is not permitted ")
